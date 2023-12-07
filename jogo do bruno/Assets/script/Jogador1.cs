@@ -11,7 +11,7 @@ public class Jogador1 : MonoBehaviour
     bool isGround;
     public Transform foot;
     public LayerMask ground;
-    public Animator playerAnimator; // Adicionei essa referência ao Animator
+  // public Animator playerAnimator; // Adicionei essa referência ao Animator
    // public Enemy enemy;
     public int maxhealth = 100;
     public bool IsGround
@@ -55,7 +55,7 @@ public class Jogador1 : MonoBehaviour
                 this.rb.AddForce(forca, ForceMode2D.Impulse);
             }
             // Atualiza o parâmetro de pulo no Animator com base no jogador
-            playerAnimator.SetBool("jump", !isGround);
+          //  playerAnimator.SetBool("jump", !isGround);
 
         }
     }
