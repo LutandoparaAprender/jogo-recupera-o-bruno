@@ -47,15 +47,7 @@ public class Jogador1 : MonoBehaviour
             //this.spriteRenderer.flipX = true;
         }
         {
-            float velocidadeX = Mathf.Abs(this.rb.velocity.x);
-            if (velocidadeX > 0)
-            {
-                this.playerAnimator.SetBool("walk", true);
-            }
-            else
-            {
-                playerAnimator.SetBool("walk", false);
-            }
+
 
             if (Input.GetKeyDown(KeyCode.Space) && isGround)
             {
