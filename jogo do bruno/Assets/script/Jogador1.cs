@@ -37,13 +37,13 @@ public class Jogador1 : MonoBehaviour
         if (velocidade.x > 0)
         {
             Vector3 flip = new Vector3(1, 1, 1);
-            transform.localScale = flip;
+            //transform.localScale = flip;
             //this.spriteRenderer.flipX = false;
         }
         else if (velocidade.x < 0)
         {
             Vector3 flip = new Vector3(-1, 1, 1);
-            transform.localScale = flip;
+            //transform.localScale = flip;
             //this.spriteRenderer.flipX = true;
         }
         {
