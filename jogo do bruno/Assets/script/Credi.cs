@@ -14,16 +14,21 @@ public class Credi : MonoBehaviour
         painelmenu.SetActive(false);
         painelcredi.SetActive(true);
     }
+
+    public void voltarMenu()
+    {
+        painelmenu.SetActive(true);
+        painelcredi.SetActive(false);
+    }
+
     public void sair()
     {
         painelmenu.SetActive(true);
         painelcredi.SetActive(false);
     }
+
     public void gameplay()
     {
         SceneManager.LoadScene(nomedolevel);
     }
-
-
 }
-

@@ -1,33 +1,30 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class respaw : MonoBehaviour
 {
-    // Variáveis para armazenar os valores x, y e z da posição inicial do personagem
     public float initialX = 0.0f;
     public float initialY = 0.0f;
     public float initialZ = 0.0f;
-    private Vector3 checkpointPos; // Altere o nome da variável para "checkpointPos"
+    private Vector3 checkpointPos;
+
+    // Tempo de cooldown para o respawn
+    private float respawnCooldown = 1;
 
     private void Start()
     {
-        // Define a posição inicial do personagem com os valores especificados
         checkpointPos = new Vector3(initialX, initialY, initialZ);
-        //transform.position = checkpointPos;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("obstacle"))
+        if (collision.CompareTag("canva"))
+        {
+            UpdateCheckpoint(collision.transform.position);
+        }
+        else if (collision.CompareTag("obstacle"))
         {
             Die();
-        }
-        else if (collision.CompareTag("checkpoint"))
-        {
-            // Se colidir com um objeto marcado como "Checkpoint," atualize a posição do checkpoint
-            UpdateCheckpoint(collision.transform.position);
         }
     }
 
@@ -36,7 +33,6 @@ public class respaw : MonoBehaviour
         Respawn();
     }
 
-    // Atualize a posição do checkpoint quando o jogador alcançar um checkpoint
     void UpdateCheckpoint(Vector3 pos)
     {
         checkpointPos = pos;
@@ -44,6 +40,14 @@ public class respaw : MonoBehaviour
 
     void Respawn()
     {
+        StartCoroutine(RespawnWithCooldown());
+    }
+
+    IEnumerator RespawnWithCooldown()
+    {
+        // Aguarde o tempo de cooldown
+        yield return new WaitForSeconds(respawnCooldown);
+
         // Define a posição de respawn como a posição do último checkpoint
         transform.position = checkpointPos;
     }

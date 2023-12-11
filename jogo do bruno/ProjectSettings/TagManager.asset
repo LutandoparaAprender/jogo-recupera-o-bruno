@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - chao
   - obstacle
+  - canva
+  - itens
+  - checkpoint
   layers:
   - Default
   - TransparentFX

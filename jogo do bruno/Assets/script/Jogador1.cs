@@ -1,27 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Jogador1 : MonoBehaviour
 {
     public Rigidbody2D rb;
     public float velocidadedeMovimento;
-    public SpriteRenderer spriteRenderer;
-    public float forcapulo;
+    public float forcaPulo;
+    public float forcaPuloTrampolim;  // Força adicional quando em cima do trampolim
     bool isGround;
+
     public Transform foot;
     public LayerMask ground;
-  // public Animator playerAnimator; // Adicionei essa referência ao Animator
-   // public Enemy enemy;
-    public int maxhealth = 100;
     public bool IsGround
     {
         get { return isGround; }
-    }
-
-    void Start()
-    {
-        // Inicialização do jogador, se necessário
     }
 
     void Update()
@@ -33,30 +24,25 @@ public class Jogador1 : MonoBehaviour
 
         isGround = Physics2D.OverlapCircle(foot.position, 0.2f, ground);
 
-
-        if (velocidade.x > 0)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Vector3 flip = new Vector3(1, 1, 1);
-            //transform.localScale = flip;
-            //this.spriteRenderer.flipX = false;
-        }
-        else if (velocidade.x < 0)
-        {
-            Vector3 flip = new Vector3(-1, 1, 1);
-            //transform.localScale = flip;
-            //this.spriteRenderer.flipX = true;
-        }
-        {
+            float forcaDePulo = isGround ? forcaPulo : 0f;
 
-
-            if (Input.GetKeyDown(KeyCode.Space) && isGround)
+            if (isTrampolimBelow())
             {
-                Vector2 forca = new Vector2(0, this.forcapulo);
-                this.rb.AddForce(forca, ForceMode2D.Impulse);
+                forcaDePulo += forcaPuloTrampolim;
             }
-            // Atualiza o parâmetro de pulo no Animator com base no jogador
-          //  playerAnimator.SetBool("jump", !isGround);
 
+            Vector2 forca = new Vector2(0, forcaDePulo);
+            this.rb.AddForce(forca, ForceMode2D.Impulse);
         }
+    }
+
+    bool isTrampolimBelow()
+    {
+        // Verifica se há um objeto com a tag "Trampolim" abaixo do jogador
+        Collider2D trampolimCollider2D = Physics2D.OverlapCircle(foot.position, 0.2f, LayerMask.GetMask("Trampolim"));
+
+        return trampolimCollider2D != null;
     }
 }
